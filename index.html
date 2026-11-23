@@ -2052,12 +2052,12 @@
     // Biarkan kosong ("") jika ingin berjalan offline menggunakan LocalStorage.
     // =========================================================================
     const MANUAL_FIREBASE_CONFIG = {
-      apiKey: "AIzaSyAr6PJPe7M75Q_l5P-2ySbx4oyXStVgr28",
-      authDomain: "apdcrewingptk-3c207.firebaseapp.com",
-      projectId: "apdcrewingptk-3c207",
-      storageBucket: "apdcrewingptk-3c207.firebasestorage.app",
-      messagingSenderId: "95590703951",
-      appId: "1:95590703951:web:3833a9e8ff7900d7dc5b3a",
+      apiKey: "",
+      authDomain: "",
+      projectId: "",
+      storageBucket: "",
+      messagingSenderId: "",
+      appId: ""
     };
 
     (async function initOptionalCloud() {
@@ -2143,6 +2143,7 @@
      *************************************************************************/
     const STORAGE_KEY_STATE = 'inventaris_apd_v5';
     const STORAGE_KEY_ACCOUNTS = 'inventaris_apd_v5_accounts';
+    const STORAGE_KEY_SESSION = 'inventaris_apd_v5_session';
     const STORAGE_KEY_UPDATED_AT = 'inventaris_apd_v5_updated_at';
     const STORAGE_KEY_THEME = 'inventaris_apd_theme_mode';
     const STORAGE_KEY_ACCENT = 'inventaris_apd_theme_accent';
@@ -2867,6 +2868,7 @@
       if (Array.isArray(remote.accounts) && remote.accounts.length > 0) {
         authState.accounts = sanitizeAccountsList(remote.accounts);
         try { localStorage.setItem(STORAGE_KEY_ACCOUNTS, JSON.stringify(authState.accounts)); } catch (_) {}
+        syncActiveSessionWithAccounts();
       }
       if (remoteTs > 0) {
         localUpdatedAt = remoteTs;
@@ -2925,6 +2927,55 @@
       const key = normalizeKey(username);
       if (!key) return null;
       return authState.accounts.find(a => normalizeKey(a.username) === key) || null;
+    }
+
+    function saveAuthSession(username) {
+      try {
+        localStorage.setItem(STORAGE_KEY_SESSION, JSON.stringify({
+          username,
+          loggedInAt: Date.now()
+        }));
+      } catch (_) {}
+    }
+
+    function clearAuthSession() {
+      try {
+        localStorage.removeItem(STORAGE_KEY_SESSION);
+      } catch (_) {}
+    }
+
+    function restoreAuthSession() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY_SESSION);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        const acc = getAccountByUsername(saved?.username);
+        if (acc && acc.active) {
+          authState.isLoggedIn = true;
+          authState.username = acc.username;
+          authState.role = acc.role;
+        } else {
+          clearAuthSession();
+        }
+      } catch (_) {
+        clearAuthSession();
+      }
+    }
+
+    function syncActiveSessionWithAccounts() {
+      if (!authState.isLoggedIn) return;
+      const acc = getAccountByUsername(authState.username);
+      if (!acc || !acc.active) {
+        handleSignOutAccount('Sesi berakhir: Akun Anda telah dinonaktifkan atau dihapus oleh Admin.');
+        return;
+      }
+      if (acc.role !== authState.role) {
+        authState.role = acc.role;
+        applyRolePermissionsUI();
+        if (!isAdmin() && (activeTab === 'accounts' || activeTab === 'excel')) {
+          switchTab('pengambilan');
+        }
+      }
     }
 
     function isAdmin() {
@@ -3060,6 +3111,7 @@
       authState.isLoggedIn = true;
       authState.username = acc.username;
       authState.role = acc.role;
+      saveAuthSession(acc.username);
 
       closeAuthModal();
       applyRolePermissionsUI();
@@ -3085,6 +3137,7 @@
       authState.isLoggedIn = false;
       authState.username = '';
       authState.role = '';
+      clearAuthSession();
       if (activeTab === 'accounts' || activeTab === 'excel') activeTab = 'pengambilan';
       applyRolePermissionsUI();
       openAuthModal();
@@ -5806,6 +5859,7 @@
 
     function initApp() {
       loadSavedData();
+      restoreAuthSession();
       applyThemeUI();
 
       const dateInput = document.getElementById('inp-tgl-terima');
