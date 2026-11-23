@@ -500,7 +500,7 @@
           </button>
 
           <!-- Indikator Status Simpan -->
-          <div class="hidden xl:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-white/8 border border-white/12 text-[11px] text-slate-200">
+          <div class="hidden xl:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-white/[0.08] border border-white/[0.12] text-[11px] text-slate-200">
             <span id="sync-status-dot" class="w-2 h-2 rounded-full bg-emerald-400"></span>
             <span id="autosave-status">Siap</span>
           </div>
@@ -550,7 +550,7 @@
             type="button"
             id="header-account-btn"
             onclick="openAccountModal()"
-            class="inline-flex items-center gap-2 pl-1.5 pr-2.5 py-1 rounded-xl bg-white/10 hover:bg-white/18 border border-white/18 transition cursor-pointer"
+            class="inline-flex items-center gap-2 pl-1.5 pr-2.5 py-1 rounded-xl bg-white/10 hover:bg-white/[0.18] border border-white/[0.18] transition cursor-pointer"
             title="Profil Akun &amp; Hak Akses"
           >
             <span id="header-user-avatar" class="w-7 h-7 rounded-lg bg-sky-400/25 text-sky-100 border border-sky-300/35 flex items-center justify-center font-mono font-bold text-xs shrink-0">
@@ -568,7 +568,7 @@
             type="button"
             id="header-logout-btn"
             onclick="handleSignOutAccount()"
-            class="hidden sm:inline-flex items-center justify-center p-2 rounded-xl bg-white/8 hover:bg-rose-500/25 border border-white/15 hover:border-rose-400/40 text-slate-200 hover:text-rose-100 transition cursor-pointer"
+            class="hidden sm:inline-flex items-center justify-center p-2 rounded-xl bg-white/[0.08] hover:bg-rose-500/25 border border-white/15 hover:border-rose-400/40 text-slate-200 hover:text-rose-100 transition cursor-pointer"
             title="Keluar / Ganti Akun"
           >
             <i data-lucide="log-out" class="w-4 h-4"></i>
@@ -597,7 +597,7 @@
           >
             <i data-lucide="bar-chart-3" class="w-4 h-4"></i>
             <span>Monitoring Stok</span>
-            <span class="non-admin-lock hidden inline-flex items-center px-1.5 py-0.5 rounded-md bg-amber-500/25 text-amber-200 text-[10px] border border-amber-400/35" title="Hanya Lihat">
+            <span class="non-admin-lock hidden items-center px-1.5 py-0.5 rounded-md bg-amber-500/25 text-amber-200 text-[10px] border border-amber-400/35" title="Hanya Lihat">
               <i data-lucide="lock" class="w-3 h-3"></i>
             </span>
           </button>
@@ -610,7 +610,7 @@
           >
             <i data-lucide="sliders-horizontal" class="w-4 h-4"></i>
             <span>Kelola Jenis Item</span>
-            <span class="non-admin-lock hidden inline-flex items-center px-1.5 py-0.5 rounded-md bg-amber-500/25 text-amber-200 text-[10px] border border-amber-400/35" title="Terkunci Khusus Admin">
+            <span class="non-admin-lock hidden items-center px-1.5 py-0.5 rounded-md bg-amber-500/25 text-amber-200 text-[10px] border border-amber-400/35" title="Terkunci Khusus Admin">
               <i data-lucide="lock" class="w-3 h-3"></i>
             </span>
           </button>
@@ -1253,6 +1253,10 @@
             <tbody id="restock-history-body"></tbody>
           </table>
         </div>
+        <div id="restock-pagination-bar" class="px-5 py-3.5 app-subcard border-t app-divider flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+          <p id="restock-page-info" class="text-sub font-medium tabular-nums">Menampilkan 0–0 dari 0 catatan</p>
+          <div id="restock-page-controls" class="flex items-center gap-1.5"></div>
+        </div>
       </div>
     </section>
 
@@ -1432,7 +1436,7 @@
               <input type="file" id="excel-file-input" accept=".xlsx,.xls" onchange="handleExcelFileSelect(event)" class="hidden" />
               <i data-lucide="file-up" class="w-8 h-8 text-accent mx-auto mb-2"></i>
               <p class="text-xs font-bold text-main">Klik untuk memilih file Excel (.xlsx) atau tarik ke area ini</p>
-              <p class="text-[11px] text-muted mt-1">Mendukung sheet STOCK, Pengambilan, kategori item, serta Sheet1 (Kolom A: Kapal, Kolom B: Jabatan)</p>
+              <p class="text-[11px] text-muted mt-1">Mendukung sheet STOCK (termasuk item kustom), Pengambilan, serta Sheet1 (Kolom A: Kapal, Kolom B: Jabatan)</p>
             </label>
 
             <!-- Preview Hasil Parse Import -->
@@ -1667,10 +1671,10 @@
   <!-- ===================================================================== -->
   <!-- OVERLAY LAYAR LOGIN MARITIME EXECUTIVE                                -->
   <!-- ===================================================================== -->
-  <div id="auth-login-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 login-backdrop">
+  <div id="auth-login-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 overflow-y-auto login-backdrop">
     <div class="absolute inset-0 login-grid-pattern pointer-events-none"></div>
 
-    <div class="relative w-full max-w-md login-glass-card rounded-3xl overflow-hidden animate-modal">
+    <div class="relative w-full max-w-md max-h-[90vh] overflow-y-auto my-auto login-glass-card rounded-3xl animate-modal">
       <!-- Header Kartu Login -->
       <div class="px-6 pt-7 pb-6 text-white relative overflow-hidden" style="background: linear-gradient(135deg, var(--header-from) 0%, var(--header-to) 100%);">
         <div class="flex items-center justify-between mb-4">
@@ -1764,8 +1768,8 @@
   <!-- ===================================================================== -->
   <!-- MODAL: PROFIL AKUN & RINGKASAN HAK AKSES                              -->
   <!-- ===================================================================== -->
-  <div id="account-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-950/65 backdrop-blur-sm">
-    <div class="app-card rounded-2xl w-full max-w-md overflow-hidden animate-modal">
+  <div id="account-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 overflow-y-auto bg-slate-950/65 backdrop-blur-sm">
+    <div class="app-card rounded-2xl w-full max-w-md max-h-[90vh] overflow-y-auto my-auto animate-modal">
       <div class="px-5 py-4 text-white flex items-center justify-between" style="background: linear-gradient(135deg, var(--header-from) 0%, var(--header-to) 100%);">
         <div class="flex items-center gap-2">
           <i data-lucide="user-check" class="w-5 h-5 text-sky-300"></i>
@@ -1820,7 +1824,7 @@
               <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
               <span>Keluar / Ganti Akun</span>
             </button>
-            <button type="button" id="btn-modal-go-accounts" onclick="closeAccountModal(); switchTab('accounts');" class="hidden inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl badge-blue border text-xs font-bold cursor-pointer">
+            <button type="button" id="btn-modal-go-accounts" onclick="closeAccountModal(); switchTab('accounts');" class="hidden items-center gap-1.5 px-3.5 py-2 rounded-xl badge-blue border text-xs font-bold cursor-pointer">
               <i data-lucide="user-cog" class="w-3.5 h-3.5"></i>
               <span>Kelola Akun</span>
             </button>
@@ -1834,8 +1838,8 @@
   <!-- ===================================================================== -->
   <!-- MODAL: TAMBAH STOK MASUK / STOCK OPNAME (KHUSUS ADMIN)                -->
   <!-- ===================================================================== -->
-  <div id="restock-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-950/65 backdrop-blur-sm">
-    <div class="app-card rounded-2xl w-full max-w-md overflow-hidden animate-modal">
+  <div id="restock-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 overflow-y-auto bg-slate-950/65 backdrop-blur-sm">
+    <div class="app-card rounded-2xl w-full max-w-md max-h-[90vh] overflow-y-auto my-auto animate-modal">
       <div class="px-5 py-4 text-white flex items-center justify-between" style="background: linear-gradient(135deg, var(--header-from) 0%, var(--header-to) 100%);">
         <div class="flex items-center gap-2">
           <i data-lucide="package-plus" class="w-5 h-5 text-sky-300"></i>
@@ -1901,8 +1905,8 @@
   <!-- ===================================================================== -->
   <!-- MODAL: EDIT JENIS ITEM & DAFTAR UKURAN (KHUSUS ADMIN)                 -->
   <!-- ===================================================================== -->
-  <div id="edit-item-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-950/65 backdrop-blur-sm">
-    <div class="app-card rounded-2xl w-full max-w-md overflow-hidden animate-modal">
+  <div id="edit-item-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 overflow-y-auto bg-slate-950/65 backdrop-blur-sm">
+    <div class="app-card rounded-2xl w-full max-w-md max-h-[90vh] overflow-y-auto my-auto animate-modal">
       <div class="px-5 py-4 text-white flex items-center justify-between" style="background: linear-gradient(135deg, var(--header-from) 0%, var(--header-to) 100%);">
         <div class="flex items-center gap-2">
           <i data-lucide="sliders" class="w-5 h-5 text-sky-300"></i>
@@ -1952,8 +1956,8 @@
   <!-- ===================================================================== -->
   <!-- MODAL: EDIT AKUN PENGGUNA (KHUSUS ADMIN)                              -->
   <!-- ===================================================================== -->
-  <div id="edit-account-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-950/65 backdrop-blur-sm">
-    <div class="app-card rounded-2xl w-full max-w-md overflow-hidden animate-modal">
+  <div id="edit-account-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 overflow-y-auto bg-slate-950/65 backdrop-blur-sm">
+    <div class="app-card rounded-2xl w-full max-w-md max-h-[90vh] overflow-y-auto my-auto animate-modal">
       <div class="px-5 py-4 text-white flex items-center justify-between" style="background: linear-gradient(135deg, var(--header-from) 0%, var(--header-to) 100%);">
         <div class="flex items-center gap-2">
           <i data-lucide="user-pen" class="w-5 h-5 text-sky-300"></i>
@@ -2012,8 +2016,8 @@
   <!-- ===================================================================== -->
   <!-- MODAL: KONFIRMASI AKSI (PENGGANTI confirm())                          -->
   <!-- ===================================================================== -->
-  <div id="confirm-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-950/65 backdrop-blur-sm">
-    <div class="app-card rounded-2xl w-full max-w-sm overflow-hidden animate-modal">
+  <div id="confirm-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 overflow-y-auto bg-slate-950/65 backdrop-blur-sm">
+    <div class="app-card rounded-2xl w-full max-w-sm max-h-[90vh] overflow-y-auto my-auto animate-modal">
       <div class="p-5 space-y-3">
         <div class="flex items-start gap-3">
           <div class="w-10 h-10 rounded-xl status-empty border flex items-center justify-center shrink-0">
@@ -2043,14 +2047,28 @@
   <!-- MODUL SINKRONISASI FIREBASE OPSIONAL (AMAN SAAT OFFLINE / LOKAL)      -->
   <!-- ===================================================================== -->
   <script type="module">
+    // =========================================================================
+    // KONFIGURASI FIREBASE — ISI DARI FIREBASE CONSOLE (Project Settings)
+    // Biarkan kosong ("") jika ingin berjalan offline menggunakan LocalStorage.
+    // =========================================================================
+    const MANUAL_FIREBASE_CONFIG = {
+      apiKey: "AIzaSyAr6PJPe7M75Q_l5P-2ySbx4oyXStVgr28",
+      authDomain: "apdcrewingptk-3c207.firebaseapp.com",
+      projectId: "apdcrewingptk-3c207",
+      storageBucket: "apdcrewingptk-3c207.firebasestorage.app",
+      messagingSenderId: "95590703951",
+      appId: "1:95590703951:web:3833a9e8ff7900d7dc5b3a"
+      measurementId: "G-TQ8E921JB3"
+    };
+
     (async function initOptionalCloud() {
       try {
-        if (typeof __firebase_config === 'undefined' || !__firebase_config) {
-          window.CloudSync = { isReady: false };
-          return;
-        }
-        const config = typeof __firebase_config === 'string' ? JSON.parse(__firebase_config) : __firebase_config;
-        if (!config || !config.apiKey) {
+        const injected = (typeof __firebase_config !== 'undefined' && __firebase_config)
+          ? (typeof __firebase_config === 'string' ? JSON.parse(__firebase_config) : __firebase_config)
+          : null;
+
+        const config = (injected && injected.apiKey) ? injected : MANUAL_FIREBASE_CONFIG;
+        if (!config || !config.apiKey || String(config.apiKey).startsWith('ISI_')) {
           window.CloudSync = { isReady: false };
           return;
         }
@@ -2084,8 +2102,15 @@
           },
           async pushBundle(payload) {
             try {
-              await setDoc(stateRef, { ...payload, updatedAt: Date.now() }, { merge: true });
-            } catch (_) {}
+              await setDoc(stateRef, {
+                ...payload,
+                updatedAt: payload.updatedAt || Date.now()
+              }, { merge: true });
+              return true;
+            } catch (err) {
+              console.warn('Gagal menyinkronkan data ke Firestore:', err);
+              return false;
+            }
           },
           subscribe(onChange) {
             try {
@@ -2103,7 +2128,8 @@
         if (typeof window.onCloudSyncReady === 'function') {
           window.onCloudSyncReady();
         }
-      } catch (_) {
+      } catch (err) {
+        console.warn('Firebase berjalan dalam mode lokal:', err);
         window.CloudSync = { isReady: false };
       }
     })();
@@ -2118,9 +2144,12 @@
      *************************************************************************/
     const STORAGE_KEY_STATE = 'inventaris_apd_v5';
     const STORAGE_KEY_ACCOUNTS = 'inventaris_apd_v5_accounts';
+    const STORAGE_KEY_UPDATED_AT = 'inventaris_apd_v5_updated_at';
     const STORAGE_KEY_THEME = 'inventaris_apd_theme_mode';
     const STORAGE_KEY_ACCENT = 'inventaris_apd_theme_accent';
     const REKAP_MAX_ROWS_PER_PAGE = 10;
+    const RESTOCK_MAX_ROWS_PER_PAGE = 15;
+    const CLIENT_SESSION_ID = 'cli-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 7);
 
     const DEFAULT_RANK_LIST = [
       'Nakhoda', 'Mualim I', 'Mualim II', 'Mualim III', 'KKM',
@@ -2446,8 +2475,8 @@
         active: true,
         isPrimaryAdmin: true,
         isBuiltIn: true,
-        defaultHash: sha256('transkogelatik'),
-        passwordHash: sha256('transkogelatik'),
+        defaultHash: '3c2c69800ab70e6955c5d99e0e0bbf6a2b672e2c09616820116b7f99a9f4f6f7',
+        passwordHash: '3c2c69800ab70e6955c5d99e0e0bbf6a2b672e2c09616820116b7f99a9f4f6f7',
         passwordUpdatedAt: null,
         createdAt: 1700000000000
       },
@@ -2459,8 +2488,8 @@
         active: true,
         isPrimaryAdmin: false,
         isBuiltIn: true,
-        defaultHash: sha256('transkocempala'),
-        passwordHash: sha256('transkocempala'),
+        defaultHash: 'face4edcf6f506d99aee6954739ef4e89f71977e7e271c44053e6d2aedb4bb22',
+        passwordHash: 'face4edcf6f506d99aee6954739ef4e89f71977e7e271c44053e6d2aedb4bb22',
         passwordUpdatedAt: null,
         createdAt: 1700000000001
       },
@@ -2472,8 +2501,8 @@
         active: true,
         isPrimaryAdmin: false,
         isBuiltIn: true,
-        defaultHash: sha256('transkosikatan'),
-        passwordHash: sha256('transkosikatan'),
+        defaultHash: '12ceff9a644ac8fb23d55a8dd5889b05a629767d71765082cb4746b727b3f6ec',
+        passwordHash: '12ceff9a644ac8fb23d55a8dd5889b05a629767d71765082cb4746b727b3f6ec',
         passwordUpdatedAt: null,
         createdAt: 1700000000002
       }
@@ -2484,6 +2513,10 @@
     let activeTab = 'pengambilan';
     let stockFilter = 'all';
     let rekapCurrentPage = 1;
+    let restockCurrentPage = 1;
+    let localUpdatedAt = 0;
+    let cloudSyncInitialized = false;
+    let cloudUnsubscribe = null;
     let pendingConfirmAction = null;
     let pendingImportData = null;
     let editingItemSizesDraft = [];
@@ -2687,9 +2720,25 @@
       }
     }
 
+    function sanitizeAppState(raw) {
+      if (!raw || !Array.isArray(raw.items) || raw.items.length === 0) {
+        return createDefaultState();
+      }
+      return {
+        kapalList: Array.isArray(raw.kapalList) && raw.kapalList.length > 0 ? raw.kapalList : [...DEFAULT_KAPAL_LIST],
+        rankList: Array.isArray(raw.rankList) && raw.rankList.length > 0 ? raw.rankList : [...DEFAULT_RANK_LIST],
+        items: raw.items,
+        transactions: Array.isArray(raw.transactions) ? raw.transactions : [],
+        restockHistory: Array.isArray(raw.restockHistory) ? raw.restockHistory : []
+      };
+    }
+
     function persistState() {
+      const ts = Date.now();
+      localUpdatedAt = ts;
       try {
         localStorage.setItem(STORAGE_KEY_STATE, JSON.stringify(appState));
+        localStorage.setItem(STORAGE_KEY_UPDATED_AT, String(ts));
       } catch (err) {
         console.warn('Gagal menyimpan state ke localStorage:', err);
       }
@@ -2698,21 +2747,36 @@
       const mm = String(now.getMinutes()).padStart(2, '0');
 
       if (window.CloudSync && window.CloudSync.isReady) {
-        updateSyncStatus(`Tersinkron ${hh}:${mm}`, 'emerald');
-        window.CloudSync.pushBundle({ appState, accounts: authState.accounts });
+        updateSyncStatus('Menyinkronkan...', 'sky');
+        window.CloudSync.pushBundle({
+          appState,
+          accounts: authState.accounts,
+          updatedAt: ts,
+          updatedByClient: CLIENT_SESSION_ID
+        }).then((ok) => {
+          updateSyncStatus(ok ? `Tersinkron ${hh}:${mm}` : `Lokal ${hh}:${mm}`, ok ? 'emerald' : 'amber');
+        });
       } else {
         updateSyncStatus(`Tersimpan ${hh}:${mm}`, 'emerald');
       }
     }
 
     function persistAccounts() {
+      const ts = Date.now();
+      localUpdatedAt = ts;
       try {
         localStorage.setItem(STORAGE_KEY_ACCOUNTS, JSON.stringify(authState.accounts));
+        localStorage.setItem(STORAGE_KEY_UPDATED_AT, String(ts));
       } catch (err) {
         console.warn('Gagal menyimpan akun ke localStorage:', err);
       }
       if (window.CloudSync && window.CloudSync.isReady) {
-        window.CloudSync.pushBundle({ appState, accounts: authState.accounts });
+        window.CloudSync.pushBundle({
+          appState,
+          accounts: authState.accounts,
+          updatedAt: ts,
+          updatedByClient: CLIENT_SESSION_ID
+        });
       }
     }
 
@@ -2768,18 +2832,10 @@
 
     function loadSavedData() {
       try {
+        localUpdatedAt = Number(localStorage.getItem(STORAGE_KEY_UPDATED_AT) || 0) || 0;
         const rawState = localStorage.getItem(STORAGE_KEY_STATE);
         if (rawState) {
-          const parsed = JSON.parse(rawState);
-          if (parsed && Array.isArray(parsed.items) && parsed.items.length > 0) {
-            appState = {
-              kapalList: Array.isArray(parsed.kapalList) && parsed.kapalList.length > 0 ? parsed.kapalList : [...DEFAULT_KAPAL_LIST],
-              rankList: Array.isArray(parsed.rankList) && parsed.rankList.length > 0 ? parsed.rankList : [...DEFAULT_RANK_LIST],
-              items: parsed.items,
-              transactions: Array.isArray(parsed.transactions) ? parsed.transactions : [],
-              restockHistory: Array.isArray(parsed.restockHistory) ? parsed.restockHistory : []
-            };
-          }
+          appState = sanitizeAppState(JSON.parse(rawState));
         }
       } catch (err) {
         console.warn('Menggunakan state default karena gagal membaca localStorage:', err);
@@ -2799,27 +2855,68 @@
       }
     }
 
+    function applyRemoteBundle(remote) {
+      if (!remote) return false;
+      const remoteTs = Number(remote.updatedAt || 0);
+      if (remote.updatedByClient === CLIENT_SESSION_ID) return false;
+      if (remoteTs > 0 && remoteTs <= localUpdatedAt) return false;
+
+      if (remote.appState && Array.isArray(remote.appState.items)) {
+        appState = sanitizeAppState(remote.appState);
+        try { localStorage.setItem(STORAGE_KEY_STATE, JSON.stringify(appState)); } catch (_) {}
+      }
+      if (Array.isArray(remote.accounts) && remote.accounts.length > 0) {
+        authState.accounts = sanitizeAccountsList(remote.accounts);
+        try { localStorage.setItem(STORAGE_KEY_ACCOUNTS, JSON.stringify(authState.accounts)); } catch (_) {}
+      }
+      if (remoteTs > 0) {
+        localUpdatedAt = remoteTs;
+        try { localStorage.setItem(STORAGE_KEY_UPDATED_AT, String(remoteTs)); } catch (_) {}
+      }
+
+      refreshAllViews();
+      renderLoginQuickChips();
+      return true;
+    }
+
     // Callback jika Firebase CloudSync opsional berhasil terhubung
     window.onCloudSyncReady = async function () {
-      if (!window.CloudSync || !window.CloudSync.isReady) return;
+      if (cloudSyncInitialized || !window.CloudSync || !window.CloudSync.isReady) return;
+      cloudSyncInitialized = true;
       try {
         const remote = await window.CloudSync.pullOnce();
-        if (remote) {
-          if (remote.appState && Array.isArray(remote.appState.items)) {
-            appState = remote.appState;
-            localStorage.setItem(STORAGE_KEY_STATE, JSON.stringify(appState));
+        const remoteTs = Number(remote?.updatedAt || 0);
+        if (remote && remoteTs > localUpdatedAt) {
+          applyRemoteBundle(remote);
+        } else if (!remote || localUpdatedAt > remoteTs) {
+          const ts = localUpdatedAt || Date.now();
+          localUpdatedAt = ts;
+          try { localStorage.setItem(STORAGE_KEY_UPDATED_AT, String(ts)); } catch (_) {}
+          await window.CloudSync.pushBundle({
+            appState,
+            accounts: authState.accounts,
+            updatedAt: ts,
+            updatedByClient: CLIENT_SESSION_ID
+          });
+        }
+
+        if (typeof window.CloudSync.subscribe === 'function') {
+          if (typeof cloudUnsubscribe === 'function') {
+            try { cloudUnsubscribe(); } catch (_) {}
           }
-          if (Array.isArray(remote.accounts) && remote.accounts.length > 0) {
-            authState.accounts = sanitizeAccountsList(remote.accounts);
-            localStorage.setItem(STORAGE_KEY_ACCOUNTS, JSON.stringify(authState.accounts));
-          }
-          refreshAllViews();
-          renderLoginQuickChips();
-        } else {
-          await window.CloudSync.pushBundle({ appState, accounts: authState.accounts });
+          cloudUnsubscribe = window.CloudSync.subscribe((liveData) => {
+            if (applyRemoteBundle(liveData)) {
+              const now = new Date();
+              const hh = String(now.getHours()).padStart(2, '0');
+              const mm = String(now.getMinutes()).padStart(2, '0');
+              updateSyncStatus(`Live ${hh}:${mm}`, 'emerald');
+            }
+          });
         }
         updateSyncStatus('Tersinkron Cloud', 'emerald');
-      } catch (_) {}
+      } catch (_) {
+        cloudSyncInitialized = false;
+      }
     };
 
     /*************************************************************************
@@ -2856,6 +2953,17 @@
       if (btnEl) {
         btnEl.innerHTML = `<i data-lucide="${isHidden ? 'eye-off' : 'eye'}" class="w-4 h-4"></i>`;
         safeCreateIcons({ nodes: [btnEl] });
+      }
+    }
+
+    function resetPasswordField(inputId) {
+      const input = document.getElementById(inputId);
+      if (!input) return;
+      input.type = 'password';
+      const btn = input.parentElement?.querySelector('button');
+      if (btn) {
+        btn.innerHTML = '<i data-lucide="eye" class="w-4 h-4"></i>';
+        safeCreateIcons({ nodes: [btn] });
       }
     }
 
@@ -2911,7 +3019,7 @@
       if (uInput && !uInput.value) uInput.value = 'Admin';
       if (pInput) {
         pInput.value = '';
-        pInput.type = 'password';
+        resetPasswordField('login-password');
       }
       const modal = document.getElementById('auth-login-modal');
       modal.classList.remove('hidden');
@@ -3016,7 +3124,11 @@
       setPerm('perm-badge-excel', adminFlag, 'Export Multi-Sheet, Import & Reset', 'Khusus Admin', true);
       setPerm('perm-badge-accounts', adminFlag, 'Kelola Semua Akun', 'Khusus Admin', true);
 
-      document.getElementById('btn-modal-go-accounts')?.classList.toggle('hidden', !adminFlag);
+      const goAccBtn = document.getElementById('btn-modal-go-accounts');
+      if (goAccBtn) {
+        goAccBtn.classList.toggle('hidden', !adminFlag);
+        goAccBtn.classList.toggle('inline-flex', adminFlag);
+      }
 
       const modal = document.getElementById('account-modal');
       modal.classList.remove('hidden');
@@ -3053,7 +3165,9 @@
 
       // Lock icons pada tab non-admin & visibility Tab 4 (Excel) + Tab 5 (Kelola Akun) khusus Admin
       document.querySelectorAll('.non-admin-lock').forEach(el => {
-        el.classList.toggle('hidden', !authState.isLoggedIn || adminFlag);
+        const hide = !authState.isLoggedIn || adminFlag;
+        el.classList.toggle('hidden', hide);
+        el.classList.toggle('inline-flex', !hide);
       });
       ['nav-tab-excel', 'nav-tab-accounts'].forEach(id => {
         const btn = document.getElementById(id);
@@ -3080,7 +3194,6 @@
       // Tab 4 (Khusus Admin)
       document.getElementById('excel-import-unlocked')?.classList.toggle('hidden', !adminFlag);
       document.getElementById('excel-reset-zone')?.classList.toggle('hidden', !adminFlag);
-      updateExportCardUI();
       safeCreateIcons();
     }
 
@@ -3136,22 +3249,37 @@
      * Menghitung stok efektif dengan mempertimbangkan mode Edit transaksi
      * (mengembalikan qty transaksi yang sedang diedit sebelum validasi)
      */
+    function getEditingTransaction() {
+      const editId = document.getElementById('edit-tx-id')?.value;
+      if (!editId) return null;
+      return appState.transactions.find(t => t.id === editId) || null;
+    }
+
+    function getHistoricalAllocatedQty(itemCode, sizeKey = 'default') {
+      const prevTx = getEditingTransaction();
+      if (!prevTx || !prevTx.isHistorical) return 0;
+      const item = getItemByCode(itemCode);
+      const prevEntry = prevTx.items?.[itemCode];
+      if (!prevEntry || Number(prevEntry.qty) <= 0) return 0;
+      if (item?.type === 'sized') {
+        return String(prevEntry.size) === String(sizeKey) ? Number(prevEntry.qty) : 0;
+      }
+      return Number(prevEntry.qty);
+    }
+
     function getEffectiveStockForForm(itemCode, sizeKey = 'default') {
       let stock = getCurrentStock(itemCode, sizeKey);
-      const editId = document.getElementById('edit-tx-id')?.value;
-      if (editId) {
-        const prevTx = appState.transactions.find(t => t.id === editId);
-        if (prevTx && !prevTx.isHistorical) {
-          const item = getItemByCode(itemCode);
-          const prevEntry = prevTx.items?.[itemCode];
-          if (prevEntry && Number(prevEntry.qty) > 0) {
-            if (item?.type === 'sized') {
-              if (String(prevEntry.size) === String(sizeKey)) {
-                stock += Number(prevEntry.qty);
-              }
-            } else {
+      const prevTx = getEditingTransaction();
+      if (prevTx && !prevTx.isHistorical) {
+        const item = getItemByCode(itemCode);
+        const prevEntry = prevTx.items?.[itemCode];
+        if (prevEntry && Number(prevEntry.qty) > 0) {
+          if (item?.type === 'sized') {
+            if (String(prevEntry.size) === String(sizeKey)) {
               stock += Number(prevEntry.qty);
             }
+          } else {
+            stock += Number(prevEntry.qty);
           }
         }
       }
@@ -3184,7 +3312,7 @@
       const txt = document.getElementById('header-alert-text');
       if (pill && txt) {
         txt.textContent = `${emptyCount} Habis/≤0`;
-        pill.classList.toggle('hidden', emptyCount === 0);
+        pill.classList.add('hidden');
         pill.classList.toggle('md:inline-flex', emptyCount > 0);
       }
     }
@@ -3224,8 +3352,6 @@
         renderStockDashboard();
       } else if (tabName === 'items') {
         renderManageItemsList();
-      } else if (tabName === 'excel') {
-        updateExportCardUI();
       } else if (tabName === 'accounts') {
         renderAccountsTab();
       }
@@ -3238,7 +3364,6 @@
       populateRankDropdown();
       refreshAllFormDropdowns();
       renderRekapTable();
-      updateExportCardUI();
       if (activeTab === 'stok') renderStockDashboard();
       if (activeTab === 'items') renderManageItemsList();
       if (activeTab === 'accounts' && isAdmin()) renderAccountsTab();
@@ -3592,7 +3717,7 @@
     function validateStockForm() {
       const violations = [];
 
-      const applyFieldFeedback = (hintEl, errEl, qtyEl, effectiveStock, qtyVal, labelText, hasSizeSelection = true) => {
+      const applyFieldFeedback = (hintEl, errEl, qtyEl, effectiveStock, qtyVal, labelText, hasSizeSelection = true, historicalAlloc = 0) => {
         if (qtyEl) qtyEl.classList.remove('input-error');
         if (errEl) {
           errEl.classList.add('hidden');
@@ -3622,21 +3747,26 @@
           hintEl.className = `text-[10px] font-mono font-bold px-2 py-0.5 rounded-md border ${st.cls}`;
         }
 
-        if (qtyVal > 0) {
+        const additionalNeeded = Math.max(0, qtyVal - historicalAlloc);
+        const maxAllowed = historicalAlloc + Math.max(0, effectiveStock || 0);
+
+        if (additionalNeeded > 0) {
           if (effectiveStock <= 0) {
-            const msg = `${labelText}: Stok habis (${effectiveStock}), tidak dapat diambil.`;
+            const msg = historicalAlloc > 0
+              ? `${labelText}: Stok habis (${effectiveStock}), tidak dapat menambah di atas jumlah sebelumnya (${historicalAlloc}).`
+              : `${labelText}: Stok habis (${effectiveStock}), tidak dapat diambil.`;
             violations.push({ msg, focusEl: qtyEl });
             if (qtyEl) qtyEl.classList.add('input-error');
             if (errEl) {
-              errEl.textContent = `Stok habis (${effectiveStock}) — maks. 0 unit.`;
+              errEl.textContent = `Stok habis (${effectiveStock}) — maks. ${maxAllowed} unit.`;
               errEl.classList.remove('hidden');
             }
-          } else if (qtyVal > effectiveStock) {
-            const msg = `${labelText}: Diminta ${qtyVal}, stok tersedia hanya ${effectiveStock}.`;
+          } else if (additionalNeeded > effectiveStock) {
+            const msg = `${labelText}: Diminta ${qtyVal}, maksimal tersedia ${maxAllowed}.`;
             violations.push({ msg, focusEl: qtyEl });
             if (qtyEl) qtyEl.classList.add('input-error');
             if (errEl) {
-              errEl.textContent = `Melebihi stok! Maksimal ${effectiveStock} unit.`;
+              errEl.textContent = `Melebihi stok! Maksimal ${maxAllowed} unit.`;
               errEl.classList.remove('hidden');
             }
           }
@@ -3650,10 +3780,11 @@
       if (wpVal) {
         const [wpCode, wpSize] = wpVal.split('::');
         const wpStk = getEffectiveStockForForm(wpCode, wpSize);
+        const wpHist = getHistoricalAllocatedQty(wpCode, wpSize);
         const wpName = wpCode === 'coverall_orange' ? `Coverall Orange (${wpSize})` : `Coverall Biru-Merah (${wpSize})`;
-        applyFieldFeedback(document.getElementById('hint-wearpack'), document.getElementById('err-wearpack'), wpQtyEl, wpStk, wpQty, wpName, true);
+        applyFieldFeedback(document.getElementById('hint-wearpack'), document.getElementById('err-wearpack'), wpQtyEl, wpStk, wpQty, wpName, true, wpHist);
       } else {
-        applyFieldFeedback(document.getElementById('hint-wearpack'), document.getElementById('err-wearpack'), wpQtyEl, null, wpQty, 'Wearpack', false);
+        applyFieldFeedback(document.getElementById('hint-wearpack'), document.getElementById('err-wearpack'), wpQtyEl, null, wpQty, 'Wearpack', false, 0);
       }
 
       // 2. Item Standar Berukuran
@@ -3669,9 +3800,10 @@
         const qty = Math.max(0, parseInt(qEl?.value || '0', 10) || 0);
         if (sz) {
           const stk = getEffectiveStockForForm(s.code, sz);
-          applyFieldFeedback(document.getElementById(`hint-${s.code}`), document.getElementById(`err-${s.code}`), qEl, stk, qty, `${s.label} (${sz})`, true);
+          const hist = getHistoricalAllocatedQty(s.code, sz);
+          applyFieldFeedback(document.getElementById(`hint-${s.code}`), document.getElementById(`err-${s.code}`), qEl, stk, qty, `${s.label} (${sz})`, true, hist);
         } else {
-          applyFieldFeedback(document.getElementById(`hint-${s.code}`), document.getElementById(`err-${s.code}`), qEl, null, qty, s.label, false);
+          applyFieldFeedback(document.getElementById(`hint-${s.code}`), document.getElementById(`err-${s.code}`), qEl, null, qty, s.label, false, 0);
         }
       }
 
@@ -3684,7 +3816,8 @@
         const qEl = document.getElementById(`qty-${u.code}`);
         const qty = Math.max(0, parseInt(qEl?.value || '0', 10) || 0);
         const stk = getEffectiveStockForForm(u.code);
-        applyFieldFeedback(null, document.getElementById(`err-${u.code}`), qEl, stk, qty, u.label, true);
+        const hist = getHistoricalAllocatedQty(u.code);
+        applyFieldFeedback(null, document.getElementById(`err-${u.code}`), qEl, stk, qty, u.label, true, hist);
       }
 
       // 4. Item Kustom Aktif
@@ -3697,13 +3830,15 @@
           const sz = document.getElementById(`sel-custom-${ci.code}`)?.value || '';
           if (sz) {
             const stk = getEffectiveStockForForm(ci.code, sz);
-            applyFieldFeedback(hintEl, errEl, qEl, stk, qty, `${ci.name} (${sz})`, true);
+            const hist = getHistoricalAllocatedQty(ci.code, sz);
+            applyFieldFeedback(hintEl, errEl, qEl, stk, qty, `${ci.name} (${sz})`, true, hist);
           } else {
-            applyFieldFeedback(hintEl, errEl, qEl, null, qty, ci.name, false);
+            applyFieldFeedback(hintEl, errEl, qEl, null, qty, ci.name, false, 0);
           }
         } else {
           const stk = getEffectiveStockForForm(ci.code);
-          applyFieldFeedback(null, errEl, qEl, stk, qty, ci.name, true);
+          const hist = getHistoricalAllocatedQty(ci.code);
+          applyFieldFeedback(null, errEl, qEl, stk, qty, ci.name, true, hist);
         }
       }
 
@@ -3821,6 +3956,54 @@
         const idx = appState.transactions.findIndex(t => t.id === editId);
         if (idx !== -1) {
           const prev = appState.transactions[idx];
+          // Pertahankan item kustom yang sedang nonaktif agar tidak terhapus diam-diam
+          const activeCustomCodes = new Set(getActiveCustomItems().map(ci => ci.code));
+          const systemCodes = new Set(['coverall_reg', 'coverall_orange', 'safety_shoes', 'kemeja_putih', 'kemeja_produk', 'celana_panjang', 'socks', 'handuk']);
+          for (const [prevCode, prevEntry] of Object.entries(prev.items || {})) {
+            if (!systemCodes.has(prevCode) && !activeCustomCodes.has(prevCode) && prevEntry?.qty > 0) {
+              itemsPayload[prevCode] = prevEntry;
+            }
+          }
+
+          // Jika transaksi historis/import diedit jumlah/ukurannya, catat selisihnya ke riwayat penyesuaian stok
+          if (prev.isHistorical) {
+            const diffMap = new Map();
+            const addToMap = (itemsObj, sign) => {
+              for (const [code, entry] of Object.entries(itemsObj || {})) {
+                const q = Number(entry?.qty || 0);
+                if (q <= 0) continue;
+                const item = getItemByCode(code);
+                const sz = item?.type === 'sized' ? String(entry.size || '') : 'default';
+                const key = `${code}::${sz}`;
+                diffMap.set(key, (diffMap.get(key) || 0) + sign * q);
+              }
+            };
+            addToMap(prev.items, 1);
+            addToMap(itemsPayload, -1);
+
+            for (const [key, delta] of diffMap.entries()) {
+              if (delta === 0) continue;
+              const [code, sz] = key.split('::');
+              const item = getItemByCode(code);
+              if (!item) continue;
+              const before = getCurrentStock(code, sz);
+              appState.restockHistory.push({
+                id: 'rs-' + Date.now() + '-' + Math.random().toString(36).slice(2, 6),
+                itemCode: code,
+                itemName: item.name,
+                size: sz,
+                mode: 'opname',
+                delta,
+                before,
+                after: before + delta,
+                date: getTodayYYYYMMDD(),
+                note: `Koreksi edit transaksi historis: ${nama}`,
+                createdAt: Date.now(),
+                createdBy: authState.username
+              });
+            }
+          }
+
           appState.transactions[idx] = {
             ...prev,
             nama,
@@ -3891,13 +4074,25 @@
       }
     }
 
+    function ensureSelectOption(selectEl, value, label) {
+      if (!selectEl || !value) return;
+      if (!Array.from(selectEl.options).some(o => o.value === value)) {
+        const opt = document.createElement('option');
+        opt.value = value;
+        opt.textContent = label || `${value} (Data Lama)`;
+        selectEl.appendChild(opt);
+      }
+      selectEl.value = value;
+    }
+
     function editTransaction(txId) {
       const tx = appState.transactions.find(t => t.id === txId);
       if (!tx) return;
 
       document.getElementById('edit-tx-id').value = tx.id;
       document.getElementById('inp-nama').value = tx.nama || '';
-      document.getElementById('inp-rank').value = tx.rank || '';
+      populateRankDropdown();
+      ensureSelectOption(document.getElementById('inp-rank'), tx.rank || '', tx.rank ? `${tx.rank} (Data Lama)` : '');
       setKapalValue(tx.kapal || '');
       document.getElementById('inp-tgl-mutasi').value = tx.tglMutasi || '';
       document.getElementById('inp-ket').value = tx.ket || '';
@@ -3910,10 +4105,12 @@
       const wpSel = document.getElementById('sel-wearpack');
       const wpQty = document.getElementById('qty-wearpack');
       if (tx.items?.coverall_orange?.qty > 0) {
-        wpSel.value = `coverall_orange::${tx.items.coverall_orange.size}`;
+        const val = `coverall_orange::${tx.items.coverall_orange.size}`;
+        ensureSelectOption(wpSel, val, `Orange ${tx.items.coverall_orange.size} (Nonaktif / Lama)`);
         wpQty.value = tx.items.coverall_orange.qty;
       } else if (tx.items?.coverall_reg?.qty > 0) {
-        wpSel.value = `coverall_reg::${tx.items.coverall_reg.size}`;
+        const val = `coverall_reg::${tx.items.coverall_reg.size}`;
+        ensureSelectOption(wpSel, val, `Biru-Merah ${tx.items.coverall_reg.size} (Nonaktif / Lama)`);
         wpQty.value = tx.items.coverall_reg.qty;
       } else {
         wpSel.value = '';
@@ -3922,7 +4119,12 @@
 
       ['safety_shoes', 'kemeja_putih', 'kemeja_produk', 'celana_panjang'].forEach(code => {
         const entry = tx.items?.[code];
-        document.getElementById(`sel-${code}`).value = entry?.size || '';
+        const selEl = document.getElementById(`sel-${code}`);
+        if (entry?.size) {
+          ensureSelectOption(selEl, entry.size, `${entry.size} (Data Lama)`);
+        } else {
+          selEl.value = '';
+        }
         document.getElementById(`qty-${code}`).value = entry?.qty || 0;
       });
 
@@ -3933,7 +4135,10 @@
         const entry = tx.items?.[ci.code];
         const sEl = document.getElementById(`sel-custom-${ci.code}`);
         const qEl = document.getElementById(`qty-custom-${ci.code}`);
-        if (sEl) sEl.value = entry?.size || '';
+        if (sEl) {
+          if (entry?.size) ensureSelectOption(sEl, entry.size, `${entry.size} (Data Lama)`);
+          else sEl.value = '';
+        }
         if (qEl) qEl.value = entry?.qty || 0;
       }
 
@@ -4277,43 +4482,92 @@
       safeCreateIcons();
     }
 
+    function goToRestockPage(page) {
+      restockCurrentPage = page;
+      renderRestockHistory();
+    }
+
     function renderRestockHistory() {
       const body = document.getElementById('restock-history-body');
       const badge = document.getElementById('restock-count-badge');
+      const pageInfo = document.getElementById('restock-page-info');
+      const controls = document.getElementById('restock-page-controls');
       if (!body) return;
-      const list = [...appState.restockHistory].sort((a, b) => Number(b.createdAt || 0) - Number(a.createdAt || 0));
-      if (badge) badge.textContent = `${list.length} catatan`;
 
-      if (list.length === 0) {
+      const list = [...appState.restockHistory].sort((a, b) => Number(b.createdAt || 0) - Number(a.createdAt || 0));
+      const totalRows = list.length;
+      if (badge) badge.textContent = `${totalRows} catatan`;
+
+      const totalPages = Math.max(1, Math.ceil(totalRows / RESTOCK_MAX_ROWS_PER_PAGE));
+      if (restockCurrentPage > totalPages) restockCurrentPage = totalPages;
+      if (restockCurrentPage < 1) restockCurrentPage = 1;
+
+      const startIdx = (restockCurrentPage - 1) * RESTOCK_MAX_ROWS_PER_PAGE;
+      const pageRows = list.slice(startIdx, startIdx + RESTOCK_MAX_ROWS_PER_PAGE);
+
+      if (pageRows.length === 0) {
         body.innerHTML = `<tr><td colspan="7" class="px-6 py-8 text-center text-muted">Belum ada catatan stok masuk atau stock opname.</td></tr>`;
-        return;
+      } else {
+        const adminFlag = isAdmin();
+        body.innerHTML = pageRows.map(rs => {
+          const item = getItemByCode(rs.itemCode);
+          const itemName = item ? item.name : (rs.itemName || rs.itemCode);
+          const isOpname = rs.mode === 'opname';
+          const delta = Number(rs.delta || 0);
+          const noteText = [rs.note || '', isOpname && rs.before !== undefined ? `(${rs.before} → ${rs.after})` : ''].filter(Boolean).join(' ');
+          return `
+            <tr>
+              <td class="px-4 py-2.5 whitespace-nowrap font-mono font-semibold text-sub tabular-nums">${esc(formatDisplayDate(rs.date))}</td>
+              <td class="px-4 py-2.5 whitespace-nowrap font-bold text-main">${esc(itemName)}</td>
+              <td class="px-4 py-2.5 whitespace-nowrap font-mono font-bold text-sub">${!rs.size || rs.size === 'default' ? '—' : esc(rs.size)}</td>
+              <td class="px-4 py-2.5 whitespace-nowrap">
+                <span class="inline-flex px-2 py-0.5 rounded-full border text-[10px] font-bold ${isOpname ? 'badge-blue' : 'status-safe'}">${isOpname ? 'Stock Opname' : 'Stok Masuk'}</span>
+              </td>
+              <td class="px-4 py-2.5 text-right font-mono font-extrabold tabular-nums" style="color: ${delta < 0 ? 'var(--empty-text)' : 'var(--safe-text)'};">${fmtSignedQty(delta)}</td>
+              <td class="px-4 py-2.5 text-sub max-w-[260px] truncate" title="${esc(noteText)}">${esc(noteText || '—')}</td>
+              <td class="px-4 py-2.5 text-center">
+                ${adminFlag
+                  ? `<button type="button" onclick="confirmDeleteRestock('${esc(rs.id)}')" class="p-1.5 rounded-lg hover:bg-rose-500/15 text-rose-500 transition cursor-pointer" title="Hapus catatan"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>`
+                  : '<span class="text-muted">—</span>'}
+              </td>
+            </tr>
+          `;
+        }).join('');
       }
 
-      const adminFlag = isAdmin();
-      body.innerHTML = list.slice(0, 100).map(rs => {
-        const item = getItemByCode(rs.itemCode);
-        const itemName = item ? item.name : (rs.itemName || rs.itemCode);
-        const isOpname = rs.mode === 'opname';
-        const delta = Number(rs.delta || 0);
-        const noteText = [rs.note || '', isOpname && rs.before !== undefined ? `(${rs.before} → ${rs.after})` : ''].filter(Boolean).join(' ');
-        return `
-          <tr>
-            <td class="px-4 py-2.5 whitespace-nowrap font-mono font-semibold text-sub tabular-nums">${esc(formatDisplayDate(rs.date))}</td>
-            <td class="px-4 py-2.5 whitespace-nowrap font-bold text-main">${esc(itemName)}</td>
-            <td class="px-4 py-2.5 whitespace-nowrap font-mono font-bold text-sub">${!rs.size || rs.size === 'default' ? '—' : esc(rs.size)}</td>
-            <td class="px-4 py-2.5 whitespace-nowrap">
-              <span class="inline-flex px-2 py-0.5 rounded-full border text-[10px] font-bold ${isOpname ? 'badge-blue' : 'status-safe'}">${isOpname ? 'Stock Opname' : 'Stok Masuk'}</span>
-            </td>
-            <td class="px-4 py-2.5 text-right font-mono font-extrabold tabular-nums" style="color: ${delta < 0 ? 'var(--empty-text)' : 'var(--safe-text)'};">${fmtSignedQty(delta)}</td>
-            <td class="px-4 py-2.5 text-sub max-w-[260px] truncate" title="${esc(noteText)}">${esc(noteText || '—')}</td>
-            <td class="px-4 py-2.5 text-center">
-              ${adminFlag
-                ? `<button type="button" onclick="confirmDeleteRestock('${esc(rs.id)}')" class="p-1.5 rounded-lg hover:bg-rose-500/15 text-rose-500 transition cursor-pointer" title="Hapus catatan"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>`
-                : '<span class="text-muted">—</span>'}
-            </td>
-          </tr>
-        `;
-      }).join('');
+      const showFrom = totalRows === 0 ? 0 : startIdx + 1;
+      const showTo = Math.min(totalRows, startIdx + RESTOCK_MAX_ROWS_PER_PAGE);
+      if (pageInfo) {
+        pageInfo.textContent = `Menampilkan ${showFrom}–${showTo} dari ${totalRows} catatan`;
+      }
+      if (controls) {
+        if (totalPages <= 1) {
+          controls.innerHTML = `<span class="px-2.5 py-1 rounded-lg app-surface-3 font-mono font-bold text-[11px] text-sub">Halaman 1 / 1</span>`;
+        } else {
+          let btns = `
+            <button type="button" ${restockCurrentPage === 1 ? 'disabled' : ''} onclick="goToRestockPage(${restockCurrentPage - 1})" class="btn-secondary px-2.5 py-1.5 rounded-lg text-xs font-bold disabled:opacity-40 cursor-pointer">
+              &laquo; Prev
+            </button>
+          `;
+          for (let p = 1; p <= totalPages; p++) {
+            if (p === 1 || p === totalPages || Math.abs(p - restockCurrentPage) <= 1) {
+              btns += `
+                <button type="button" onclick="goToRestockPage(${p})" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition cursor-pointer ${p === restockCurrentPage ? 'btn-primary' : 'btn-secondary'}">
+                  ${p}
+                </button>
+              `;
+            } else if (Math.abs(p - restockCurrentPage) === 2) {
+              btns += `<span class="px-1 text-muted">…</span>`;
+            }
+          }
+          btns += `
+            <button type="button" ${restockCurrentPage === totalPages ? 'disabled' : ''} onclick="goToRestockPage(${restockCurrentPage + 1})" class="btn-secondary px-2.5 py-1.5 rounded-lg text-xs font-bold disabled:opacity-40 cursor-pointer">
+              Next &raquo;
+            </button>
+          `;
+          controls.innerHTML = btns;
+        }
+      }
       safeCreateIcons({ nodes: [body] });
     }
 
@@ -4684,7 +4938,7 @@
       const sz = editingItemSizesDraft[idx];
       if (sz === undefined) return;
       const used = appState.restockHistory.some(r => r.itemCode === code && String(r.size) === String(sz)) ||
-        appState.transactions.some(tx => !tx.isHistorical && tx.items?.[code] && String(tx.items[code].size) === String(sz));
+        appState.transactions.some(tx => tx.items?.[code] && String(tx.items[code].size) === String(sz));
       if (used) {
         showToast(`Ukuran "${sz}" tidak bisa dihapus karena sudah dipakai pada transaksi atau catatan stok.`, 'error');
         return;
@@ -4800,11 +5054,6 @@
       }
       row.push(tx.isHistorical ? '' : (tx.createdByLabel || tx.createdBy || ''), tx.createdAt && !tx.isHistorical ? formatDateTimeLocal(tx.createdAt) : '');
       return row;
-    }
-
-    function updateExportCardUI() {
-      const btnText = document.getElementById('btn-export-excel-text');
-      if (btnText) btnText.textContent = 'Export ke Excel (.xlsx)';
     }
 
     function exportToExcel() {
@@ -4929,7 +5178,7 @@
 
     function parseImportWorkbook(wb, fileName) {
       const findSheet = (name) => wb.SheetNames.find(n => normalizeKey(n) === name);
-      const data = { fileName, kapal: [], rank: [], stockRows: [], transactions: [], skippedStock: 0, skippedDup: 0 };
+      const data = { fileName, kapal: [], rank: [], newCustomItems: [], stockRows: [], transactions: [], skippedStock: 0, skippedDup: 0 };
 
       // Sheet1: Kolom A = Kapal, Kolom B = Jabatan
       const refName = findSheet('sheet1');
@@ -4953,26 +5202,70 @@
         });
       }
 
-      // STOCK
+      // STOCK (mendukung item bawaan & otomatis mendeteksi item kustom baru)
       const stockName = findSheet('stock');
+      const discoveredCustomMap = new Map();
       if (stockName) {
         const rows = XLSX.utils.sheet_to_json(wb.Sheets[stockName], { defval: '' });
-        rows.forEach(raw => {
+        rows.forEach((raw, idx) => {
           const r = {};
           Object.keys(raw).forEach(k => { r[normHeader(k)] = raw[k]; });
-          const codeVal = normalizeKey(r.KODE ?? r.KODEITEM ?? '');
-          const nameVal = normalizeKey(r.ITEMAPD ?? r.ITEM ?? '');
-          const item = appState.items.find(i => normalizeKey(i.code) === codeVal) ||
-            appState.items.find(i => normalizeKey(i.name) === nameVal);
+          const rawCode = String(r.KODE ?? r.KODEITEM ?? '').trim();
+          const rawName = String(r.ITEMAPD ?? r.ITEM ?? '').trim();
+          const codeVal = normalizeKey(rawCode);
+          const nameVal = normalizeKey(rawName);
           const finalRaw = r.STOKAKHIR ?? r.SISA ?? '';
           const finalVal = finalRaw === '' ? NaN : Number(finalRaw);
-          if (!item || isNaN(finalVal)) {
+          if ((!codeVal && !nameVal) || isNaN(finalVal)) {
+            data.skippedStock++;
+            return;
+          }
+
+          let item = appState.items.find(i => codeVal && normalizeKey(i.code) === codeVal) ||
+            appState.items.find(i => nameVal && normalizeKey(i.name) === nameVal);
+
+          const sRaw = String(r.UKURAN ?? '').trim();
+          const isUnsizedRow = !sRaw || sRaw === '-' || normalizeKey(sRaw) === 'all size' || normalizeKey(sRaw) === 'default';
+
+          if (!item && rawName) {
+            const customKey = codeVal || nameVal;
+            if (!discoveredCustomMap.has(customKey)) {
+              const slug = rawName.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '').slice(0, 24) || 'item';
+              const newCode = rawCode && !appState.items.some(i => normalizeKey(i.code) === codeVal)
+                ? rawCode
+                : `custom_${slug}_${Date.now().toString(36)}_${idx}`;
+              discoveredCustomMap.set(customKey, {
+                code: newCode,
+                name: rawName,
+                sheetName: rawName.replace(/[\/?*\[\]:]/g, ' ').slice(0, 31),
+                type: isUnsizedRow ? 'unsized' : 'sized',
+                isSystem: false,
+                active: true,
+                sizes: [],
+                baseStock: {}
+              });
+            }
+            const customDef = discoveredCustomMap.get(customKey);
+            if (!isUnsizedRow) {
+              customDef.type = 'sized';
+              if (!customDef.sizes.some(s => s.toLowerCase() === sRaw.toLowerCase())) {
+                customDef.sizes.push(sRaw);
+              }
+              customDef.baseStock[sRaw] = Math.round(finalVal);
+              data.stockRows.push({ code: customDef.code, size: sRaw, final: Math.round(finalVal), isNewItem: true });
+            } else {
+              customDef.baseStock.default = Math.round(finalVal);
+              data.stockRows.push({ code: customDef.code, size: 'default', final: Math.round(finalVal), isNewItem: true });
+            }
+            return;
+          }
+
+          if (!item) {
             data.skippedStock++;
             return;
           }
           let sizeKey = 'default';
           if (item.type === 'sized') {
-            const sRaw = String(r.UKURAN ?? '').trim();
             const match = item.sizes.find(s => s.toLowerCase() === sRaw.toLowerCase());
             if (!match) {
               data.skippedStock++;
@@ -4982,13 +5275,14 @@
           }
           data.stockRows.push({ code: item.code, size: sizeKey, final: Math.round(finalVal) });
         });
+        data.newCustomItems = Array.from(discoveredCustomMap.values());
       }
 
       // Pengambilan
       const pengName = findSheet('pengambilan');
       if (pengName) {
         const rows = XLSX.utils.sheet_to_json(wb.Sheets[pengName], { defval: '', raw: true });
-        const customItems = appState.items.filter(i => !i.isSystem);
+        const customItems = [...appState.items.filter(i => !i.isSystem), ...data.newCustomItems];
         const existing = new Set(appState.transactions.map(txSignature));
         const stdSized = [
           ['safety_shoes', 'SAFETYSHOES', 'JMLSAFETYSHOES'],
@@ -4996,9 +5290,11 @@
           ['kemeja_produk', 'KEMEJAPRODUK', 'JMLKEMEJAPRODUK'],
           ['celana_panjang', 'CELANAPANJANG', 'JMLCELANAPANJANG']
         ];
-        const toQty = (v, fallback) => {
+        const toQty = (v, fallbackIfBlank) => {
+          if (v === '' || v === null || v === undefined) return fallbackIfBlank;
           const n = parseInt(v, 10);
-          return isNaN(n) || n <= 0 ? fallback : n;
+          if (isNaN(n) || n < 0) return 0;
+          return n;
         };
 
         rows.forEach((raw, idx) => {
@@ -5010,14 +5306,18 @@
           const items = {};
           const wpSize = String(r.WEARPACKCOVERALL ?? r.WEARPACK ?? '').trim();
           if (wpSize) {
-            const orange = getItemByCode('coverall_orange');
-            const isOrange = wpSize.endsWith('-') || Boolean(orange && orange.sizes.includes(wpSize));
-            const code = isOrange ? 'coverall_orange' : 'coverall_reg';
-            items[code] = { size: wpSize, qty: toQty(r.JMLWEARPACK, 1) };
+            const wpQty = toQty(r.JMLWEARPACK, 1);
+            if (wpQty > 0) {
+              const orange = getItemByCode('coverall_orange');
+              const isOrange = wpSize.endsWith('-') || Boolean(orange && orange.sizes.includes(wpSize));
+              const code = isOrange ? 'coverall_orange' : 'coverall_reg';
+              items[code] = { size: wpSize, qty: wpQty };
+            }
           }
           stdSized.forEach(([code, sKey, qKey]) => {
             const sz = String(r[sKey] ?? '').trim();
-            if (sz) items[code] = { size: sz, qty: toQty(r[qKey], 1) };
+            const q = toQty(r[qKey], 1);
+            if (sz && q > 0) items[code] = { size: sz, qty: q };
           });
           items.socks = { qty: toQty(r.KAOSKAKI, 0) };
           items.handuk = { qty: toQty(r.HANDUK, 0) };
@@ -5026,7 +5326,8 @@
             const label = normHeader(ci.name);
             if (ci.type === 'sized') {
               const sz = String(r[label] ?? '').trim();
-              if (sz) items[ci.code] = { size: sz, qty: toQty(r['JML' + label], 1) };
+              const q = toQty(r['JML' + label], 1);
+              if (sz && q > 0) items[ci.code] = { size: sz, qty: q };
             } else {
               const q = toQty(r[label], 0);
               if (q > 0) items[ci.code] = { qty: q };
@@ -5061,7 +5362,7 @@
         });
       }
 
-      data.hasContent = data.kapal.length > 0 || data.rank.length > 0 || data.stockRows.length > 0 || data.transactions.length > 0;
+      data.hasContent = data.kapal.length > 0 || data.rank.length > 0 || data.newCustomItems.length > 0 || data.stockRows.length > 0 || data.transactions.length > 0;
       return data;
     }
 
@@ -5079,6 +5380,7 @@
       const lines = [];
       if (d.kapal.length) lines.push(`<p>Daftar Kapal: <strong class="text-main font-mono">${d.kapal.length}</strong> kapal akan menggantikan daftar saat ini.</p>`);
       if (d.rank.length) lines.push(`<p>Daftar Jabatan: <strong class="text-main font-mono">${d.rank.length}</strong> jabatan akan menggantikan daftar saat ini.</p>`);
+      if (d.newCustomItems.length) lines.push(`<p>Item Kustom Baru: <strong class="text-main font-mono">${d.newCustomItems.length}</strong> jenis item otomatis ditambahkan dari sheet STOCK.</p>`);
       if (d.stockRows.length) lines.push(`<p>Sheet STOCK: <strong class="text-main font-mono">${d.stockRows.length}</strong> baris dibaca. Stok akhir disesuaikan lewat catatan stock opname${d.skippedStock ? ` (${d.skippedStock} baris tidak cocok dilewati)` : ''}.</p>`);
       if (d.transactions.length || d.skippedDup) lines.push(`<p>Sheet Pengambilan: <strong class="text-main font-mono">${d.transactions.length}</strong> transaksi baru${d.skippedDup ? `, ${d.skippedDup} duplikat dilewati` : ''}. Dicatat sebagai riwayat tanpa memotong stok.</p>`);
       document.getElementById('import-preview-summary').innerHTML = lines.join('');
@@ -5101,9 +5403,19 @@
       if (d.kapal.length) appState.kapalList = d.kapal;
       if (d.rank.length) appState.rankList = d.rank;
 
+      // Tambahkan item kustom baru yang ditemukan di sheet STOCK terlebih dahulu
+      if (d.newCustomItems.length) {
+        d.newCustomItems.forEach(ci => {
+          if (!appState.items.some(existing => normalizeKey(existing.code) === normalizeKey(ci.code))) {
+            appState.items.push(ci);
+          }
+        });
+      }
+
       let adjusted = 0;
       const today = getTodayYYYYMMDD();
       d.stockRows.forEach(row => {
+        if (row.isNewItem) return; // saldo awal sudah diset langsung di baseStock item baru
         const item = getItemByCode(row.code);
         if (!item) return;
         const before = getCurrentStock(row.code, row.size);
@@ -5134,7 +5446,7 @@
       persistState();
       clearExcelImportPreview();
       refreshAllViews();
-      showToast(`Import selesai: ${d.transactions.length} transaksi, ${adjusted} penyesuaian stok${d.kapal.length ? `, ${d.kapal.length} kapal` : ''}${d.rank.length ? `, ${d.rank.length} jabatan` : ''}.`, 'success');
+      showToast(`Import selesai: ${d.transactions.length} transaksi, ${adjusted} penyesuaian stok${d.newCustomItems.length ? `, ${d.newCustomItems.length} item baru` : ''}${d.kapal.length ? `, ${d.kapal.length} kapal` : ''}${d.rank.length ? `, ${d.rank.length} jabatan` : ''}.`, 'success');
     }
 
     function confirmResetToBaseline() {
@@ -5145,6 +5457,7 @@
         () => {
           appState = createDefaultState();
           rekapCurrentPage = 1;
+          restockCurrentPage = 1;
           stockFilter = 'all';
           persistState();
           resetPengambilanForm();
@@ -5311,6 +5624,8 @@
       });
       persistAccounts();
       document.getElementById('add-account-form').reset();
+      resetPasswordField('acc-new-password');
+      resetPasswordField('acc-new-password-confirm');
       renderAccountsTab();
       renderLoginQuickChips();
       showToast(`Akun ${username} (${role === 'admin' ? 'Admin' : 'Operator'}) berhasil ditambahkan.`, 'success');
@@ -5359,6 +5674,9 @@
       target.passwordUpdatedAt = Date.now();
       persistAccounts();
       document.getElementById('change-password-form').reset();
+      resetPasswordField('pw-admin-current');
+      resetPasswordField('pw-new-password');
+      resetPasswordField('pw-confirm-password');
       renderAccountsTab();
       showToast(`Password akun ${target.username} berhasil diperbarui.`, 'success');
     }
